@@ -15,7 +15,7 @@ public class InputHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            GameManager.HideDating();
+            GameManager.ToggleDating();
         }
     }
 }

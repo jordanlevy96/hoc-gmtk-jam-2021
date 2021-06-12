@@ -20,8 +20,9 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public static void HideDating()
+    public static void ToggleDating()
     {
-        DatingCourt.SetActive(false);
+        bool status = DatingCourt.activeSelf;
+        DatingCourt.SetActive(!status);
     }
 }
