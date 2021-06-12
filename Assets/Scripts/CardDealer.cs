@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class CardDealer : MonoBehaviour
 {
-    private List<GameObject> Hand;
     public CardGenerator Generator;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Hand = new List<GameObject>();
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Hand.Count == 0)
+        if (GameManager.Hand.Count == 0)
         {
-            Hand.Add(Generator.DrawCard());
+            GameManager.Hand.Add(Generator.DrawCard());
         }
     }
 

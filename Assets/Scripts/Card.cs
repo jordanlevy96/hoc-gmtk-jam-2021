@@ -13,7 +13,7 @@ public class Card : MonoBehaviour
     public void Start()
     {
         grid = transform.parent.GetComponent<Tilemap>();
-        tile = new Tile();
+        tile = ScriptableObject.CreateInstance<Tile>();
         tile.sprite = transform.GetComponent<SpriteRenderer>().sprite;
     }
 
@@ -33,6 +33,7 @@ public class Card : MonoBehaviour
             Debug.Log("You dragged a sprite onto a tile!!!");
             grid.SetTile(gridPos, tile);
             Destroy(transform.gameObject);
+            GameManager.Hand.Remove(transform.gameObject);
         }        
     }
 

@@ -10,7 +10,7 @@ public class CardGenerator : MonoBehaviour
     private System.Random Rand = new System.Random();
 
     private static Vector3 CARD_SCALE = new Vector3(1.3f, 1.3f, 1);
-    private static Vector3 CARD_OFFSET = new Vector3(8, 0, 0);
+    private static Vector3 CARD_OFFSET = new Vector3(8, 0, -1);
 
     public GameObject DrawCard()
     {
