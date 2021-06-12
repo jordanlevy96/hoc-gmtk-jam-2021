@@ -17,6 +17,7 @@ public class CardGenerator : MonoBehaviour
 
         GameObject card = new GameObject();
         card.transform.SetParent(Grid.transform);
+        card.transform.localScale = new Vector3(1.3f, 1.3f, 1);
         SpriteRenderer sr = card.AddComponent<SpriteRenderer>();
         sr.sprite = tile.sprite;
         card.AddComponent<BoxCollider2D>();
