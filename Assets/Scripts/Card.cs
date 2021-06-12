@@ -22,19 +22,15 @@ public class Card : MonoBehaviour
     public void OnMouseUp()
     {
         isDragging = false;
-
-        Vector3Int tilePos = Vector3Int.FloorToInt(transform.position);
-        // SpriteRenderer sprite = (SpriteRenderer)transform.gameObject.GetComponent(typeof(SpriteRenderer));
-        // TileBase tile = (TileBase)ScriptableObject.CreateInstance(sprite.sprite);
+        Vector3Int gridPos = field.WorldToCell(transform.position);
         
-        if (field.HasTile(tilePos))
+        
+        if (field.HasTile(gridPos))
         {
             Debug.Log("You dragged a sprite onto a tile!!!");
-            Vector3Int gridPos = field.WorldToCell(tilePos);
             field.SetTile(gridPos, tile);
             Destroy(transform.gameObject);
-        }
-        Debug.Log(tilePos);
+        }        
     }
 
     void Update()
