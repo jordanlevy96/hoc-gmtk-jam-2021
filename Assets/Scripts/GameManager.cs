@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager gm;
     public static List<GameObject> Hand;
     private static GameObject DatingCourt;
+
+    public int SameMatchScore;
+    public int CloseMatchScore;
+    public int WinThreshold;
 
     // Start is called before the first frame update
     void Start()
     {
-        Hand = new List<GameObject>(); 
-        DatingCourt = GameObject.Find("DatingCourt");
+        if (!gm)
+        {
+            gm = this;
+            Hand = new List<GameObject>(); 
+            DatingCourt = GameObject.Find("DatingCourt");
+        }
     }
 
     // Update is called once per frame
