@@ -33,6 +33,7 @@ public class Card : MonoBehaviour
             Debug.Log("You dragged a sprite onto a tile!!!");
             grid.SetTile(gridPos, tile);
             Destroy(transform.gameObject);
+            GameManager.Hand.Remove(transform.gameObject);
         }        
     }
 
