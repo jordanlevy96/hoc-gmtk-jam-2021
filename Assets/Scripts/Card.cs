@@ -5,13 +5,16 @@ using UnityEngine.Tilemaps;
 
 public class Card : MonoBehaviour
 {
-    public Tilemap field;
-    public Tile tile;
+    private Tilemap grid;
+    private Tile tile;
+
     private bool isDragging;
 
-    void Start()
+    public void Start()
     {
-        Debug.Log("New Card!");
+        grid = transform.parent.GetComponent<Tilemap>();
+        tile = new Tile();
+        tile.sprite = transform.GetComponent<SpriteRenderer>().sprite;
     }
 
     public void OnMouseDown()
@@ -22,13 +25,13 @@ public class Card : MonoBehaviour
     public void OnMouseUp()
     {
         isDragging = false;
-        Vector3Int gridPos = field.WorldToCell(transform.position);
+        Vector3Int gridPos = grid.WorldToCell(transform.position);
         
         
-        if (field.HasTile(gridPos))
+        if (grid.HasTile(gridPos))
         {
             Debug.Log("You dragged a sprite onto a tile!!!");
-            field.SetTile(gridPos, tile);
+            grid.SetTile(gridPos, tile);
             Destroy(transform.gameObject);
         }        
     }
