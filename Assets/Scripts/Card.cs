@@ -13,7 +13,7 @@ public class Card : MonoBehaviour
     public void Start()
     {
         grid = transform.parent.GetComponent<Tilemap>();
-        tile = new Tile();
+        tile = ScriptableObject.CreateInstance<Tile>();
         tile.sprite = transform.GetComponent<SpriteRenderer>().sprite;
     }
 
