@@ -9,8 +9,9 @@ public class CardDealer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Hand.Count == 0)
+        if (GameManager.Hand.Count == 0 && GameManager.TurnsTaken < 16)
         {
+            GameManager.AITurn();
             GameManager.Hand.Add(Generator.DrawCard());
         }
     }

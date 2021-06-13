@@ -22,6 +22,7 @@ public class TileManager : MonoBehaviour
 
     public void PlaceCard(Card card, Vector3Int gridPos)
     {
+        GameManager.TurnsTaken += 1;
         // set card tile
         Tile cardTile = ScriptableObject.CreateInstance<Tile>();
         Sprite cardSprite = card.transform.GetComponent<SpriteRenderer>().sprite;
@@ -51,6 +52,11 @@ public class TileManager : MonoBehaviour
         card.transform.gameObject.SetActive(false);
         GameManager.Hand.Remove(card.transform.gameObject);
         DatingCourt.Court[gridPos.x, gridPos.y] = card;
-        DatingCourt.Evaluate();
+
+        if (!GameManager.AITurnActive)
+        {
+            // only calculate new score on player turn
+            DatingCourt.EvaluateScore(gridPos.x, gridPos.y);
+        }
     }
 }

@@ -8,17 +8,29 @@ public class DatingCourt : MonoBehaviour
 
     static int Height = 4;
     static int Width = 4;
+    private static System.Random rand;
 
     // Start is called before the first frame update
     void Start()
     {
         Court = new Card[Width, Height];
+        rand = new System.Random();
     }
 
-    // Update is called once per frame
-    void Update()
+    public static Vector3Int FindRandomSpace()
     {
+        bool taken = true;
+        while (taken)
+        {
+            int x = rand.Next(Width);
+            int y = rand.Next(Height);
+            if (!Court[x, y])
+            {
+                return new Vector3Int(x, y, 0);
+            }
+        }
         
+        return Vector3Int.zero;
     }
 
     private static int CheckNeighbors(int x, int y)
@@ -79,19 +91,10 @@ public class DatingCourt : MonoBehaviour
         return total;
     }
 
-    public static void Evaluate()
+    public static void EvaluateScore(int x, int y)
     {
-        int score = 0;
-
-        for (int x = 0; x < Width; x++)
-        {
-            for (int y = 0; y < Height; y++)
-            {
-                score += CheckNeighbors(x, y);
-            }
-        }
-
-        GameManager.CurrentScore = score;
+        bool[,] counted = new bool[Width, Height];        
+        GameManager.CurrentScore += CheckNeighbors(x, y);;
         GameManager.gm.Score.text = "Total Score: " + GameManager.CurrentScore.ToString();
     }
 }
