@@ -42,7 +42,11 @@ public class Card : MonoBehaviour
         isDragging = false;
         Vector3Int gridPos = grid.WorldToCell(transform.position);
 
-        if (grid.HasTile(gridPos))
+        if (DatingCourt.Court[gridPos.x, gridPos.y])
+        {
+            Debug.Log("Tile taken!");
+        }
+        else if (grid.HasTile(gridPos))
         {
             Debug.Log("You dragged a sprite onto " + gridPos);
 
@@ -50,18 +54,25 @@ public class Card : MonoBehaviour
             Sprite cardSprite = transform.GetComponent<SpriteRenderer>().sprite;
             cardTile.sprite = cardSprite;
             grid.SetTile(gridPos, cardTile);
+            Debug.Log("Set " + cardTile + " to " + gridPos);
+
+            Vector3Int charPos = new Vector3Int(gridPos.x, gridPos.y, gridPos.z + 1);
+            grid.SetTile(charPos, character);
+            Debug.Log("Set " + character + " to " + charPos);
 
             for (int i = 0; i < traits.Count; i++)
             {
                 Tile traitTile = traits[i].CreateTraitTile();
-                Vector3Int traitPos = new Vector3Int(gridPos.x, gridPos.y, gridPos.z + i+1);
+                Vector3Int traitPos = new Vector3Int(gridPos.x, gridPos.y, gridPos.z + i+2);
                 grid.SetTile(traitPos, traitTile);
+                Debug.Log("Set " + traitTile + " to " + traitPos);
             }
 
             transform.gameObject.SetActive(false);
             GameManager.Hand.Remove(transform.gameObject);
             DatingCourt.Court[gridPos.x, gridPos.y] = this;
             DatingCourt.Evaluate();
+            grid.RefreshAllTiles();
         }
     }
 
