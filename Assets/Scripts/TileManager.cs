@@ -12,8 +12,11 @@ public class TileManager : MonoBehaviour
 
     public static TileManager tm;
 
+    private AudioSource placeCardSound;
+
     public void Start()
     {
+        placeCardSound = this.GetComponent<AudioSource>();
         if (!tm)
         {
             tm = this;
@@ -23,6 +26,9 @@ public class TileManager : MonoBehaviour
     public void PlaceCard(Card card, Vector3Int gridPos)
     {
         GameManager.TurnsTaken += 1;
+        // play card placement sound
+        placeCardSound.Play();
+
         // set card tile
         Tile cardTile = ScriptableObject.CreateInstance<Tile>();
         Sprite cardSprite = card.transform.GetComponent<SpriteRenderer>().sprite;
