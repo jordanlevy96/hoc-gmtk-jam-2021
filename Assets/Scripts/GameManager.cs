@@ -18,8 +18,12 @@ public class GameManager : MonoBehaviour
     public static bool AITurnActive;
     public static int TurnsTaken;
 
+    
+    private AudioSource clickSound;
+
     void Awake()
     {
+        clickSound = this.GetComponent<AudioSource>();
         if (!gm)
         {
             gm = this;
@@ -29,6 +33,14 @@ public class GameManager : MonoBehaviour
             CurrentScore = 0;
             AITurnActive = false;
             TurnsTaken = 0;
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        { 
+            clickSound.Play();
         }
     }
 

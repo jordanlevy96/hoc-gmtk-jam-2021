@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    private AudioSource clickSound;
+
+    void Start()
+    {
+        clickSound = this.GetComponent<AudioSource>();
+    }
+
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -13,5 +20,13 @@ public class MenuManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        { 
+            clickSound.Play();
+        }
     }
 }
