@@ -9,7 +9,7 @@ public class CardGenerator : MonoBehaviour
     public Tilemap Grid;
     private System.Random Rand = new System.Random();
 
-    private static Vector3 CARD_SCALE = new Vector3(1.3f, 1.3f, 1);
+    private static Vector3 CARD_SCALE = new Vector3(0.5f, 0.5f, 1);
     private static Vector3 CARD_OFFSET = new Vector3(8, 0, -1);
     // private static Vector3 TRAIT_SCALE = new Vector3(0.5f, 0.5f, 1);
     private static Vector3 TRAIT_OFFSET = new Vector3(0, 0, -2);
