@@ -92,5 +92,6 @@ public class DatingCourt : MonoBehaviour
         }
 
         GameManager.CurrentScore = score;
+        GameManager.gm.Score.text = "Total Score: " + GameManager.CurrentScore.ToString();
     }
 }

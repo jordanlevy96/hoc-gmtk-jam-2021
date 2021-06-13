@@ -29,10 +29,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Score)
-        {
-            Score.text = "Total Score: " + CurrentScore;
-        }
+        
     }
 
     public static void ToggleDating()
