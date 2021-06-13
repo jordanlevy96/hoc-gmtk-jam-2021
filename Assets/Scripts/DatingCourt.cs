@@ -93,7 +93,6 @@ public class DatingCourt : MonoBehaviour
 
     public static void EvaluateScore(int x, int y)
     {
-        bool[,] counted = new bool[Width, Height];        
         GameManager.CurrentScore += CheckNeighbors(x, y);;
         GameManager.gm.Score.text = "Total Score: " + GameManager.CurrentScore.ToString();
     }

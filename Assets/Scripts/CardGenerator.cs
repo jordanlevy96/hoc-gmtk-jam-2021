@@ -30,8 +30,10 @@ public class CardGenerator : MonoBehaviour
         Tile background = Backgrounds[randBackground];
         Tile character = Characters[randChar];
 
-        GameObject cardGO = new GameObject();
-        // cardGO.transform.SetParent(Grid.transform);
+        GameObject DatingContainer = GameObject.Find("DatingCourt");
+
+        GameObject cardGO = new GameObject("card");
+        cardGO.transform.SetParent(DatingContainer.transform);
         cardGO.transform.localScale = CARD_SCALE;
         cardGO.transform.Translate(CARD_OFFSET);
 

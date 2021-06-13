@@ -29,8 +29,6 @@ public class Card : MonoBehaviour
 
         if (grid.HasTile(gridPos))
         {
-            Debug.Log("You dragged a sprite onto " + gridPos);
-
             if (DatingCourt.Court[gridPos.x, gridPos.y])
             {
                 Debug.Log("Tile taken!");
