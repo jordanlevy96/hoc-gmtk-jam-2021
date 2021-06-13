@@ -60,16 +60,19 @@ public class Trait : MonoBehaviour
         }
     }
 
-    public TraitType trait;
+    private TraitType trait;
     private static System.Random rand = new System.Random();
 
-    void Start()
+    void Awake()
     {
-        System.Array traits = TraitType.GetValues(typeof(TraitType));
-        trait = (TraitType)traits.GetValue(rand.Next(traits.Length));
-        SpriteRenderer traitSprite = transform.gameObject.AddComponent<SpriteRenderer>();
-        traitSprite.sprite = (Sprite)Resources.Load<Sprite>(TraitPaths[trait]); 
-        // traitSprite.color = TraitColors[trait];
+        TraitType[] traits = (TraitType[])System.Enum.GetValues(typeof(TraitType));
+        int randi = rand.Next(traits.Length);
+        trait = (TraitType)traits.GetValue(randi);
+    }
+
+    public Sprite GetTraitSprite()
+    {
+        return (Sprite)Resources.Load<Sprite>(TraitPaths[trait]);
     }
 
     public static Tile CreateTraitTile(Trait t)

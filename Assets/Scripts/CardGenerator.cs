@@ -28,40 +28,42 @@ public class CardGenerator : MonoBehaviour
         Tile background = Backgrounds[randBackground];
         Tile character = Characters[randChar];
 
-        GameObject card = new GameObject();
-        card.transform.SetParent(Grid.transform);
-        card.transform.localScale = CARD_SCALE;
-        card.transform.Translate(CARD_OFFSET);
+        GameObject cardGO = new GameObject();
+        cardGO.transform.SetParent(Grid.transform);
+        cardGO.transform.localScale = CARD_SCALE;
+        cardGO.transform.Translate(CARD_OFFSET);
 
-        SpriteRenderer cardFrame = card.AddComponent<SpriteRenderer>();
+        SpriteRenderer cardFrame = cardGO.AddComponent<SpriteRenderer>();
         cardFrame.sprite = Frame.sprite;
-        card.AddComponent<BoxCollider2D>();
-        Card cardManager = card.AddComponent<Card>();
+        cardGO.AddComponent<BoxCollider2D>();
+        Card card = cardGO.AddComponent<Card>();
 
         GameObject bg = new GameObject("background");
-        bg.transform.SetParent(card.transform);
+        bg.transform.SetParent(cardGO.transform);
         bg.transform.localScale = BACKGROUND_SCALE;
         bg.transform.Translate(CARD_OFFSET + BACKGROUND_OFFSET);
         SpriteRenderer bgSprite = bg.AddComponent<SpriteRenderer>();
         bgSprite.sprite = background.sprite;
-        card.GetComponent<Card>().bg = background;
+        cardGO.GetComponent<Card>().bg = background;
 
         GameObject ch = new GameObject("character");
-        ch.transform.SetParent(card.transform);
+        ch.transform.SetParent(cardGO.transform);
         ch.transform.localScale = CHARACTER_SCALE;
         ch.transform.Translate(CARD_OFFSET + CHARACTER_OFFSET);
         SpriteRenderer chSprite = ch.AddComponent<SpriteRenderer>();
         chSprite.sprite = character.sprite;
-        card.GetComponent<Card>().character = character;
+        cardGO.GetComponent<Card>().character = character;
 
         GameObject trait1GO = new GameObject("trait1");
-        trait1GO.transform.SetParent(card.transform);
+        trait1GO.transform.SetParent(cardGO.transform);
         Trait t1 = trait1GO.AddComponent<Trait>();
-        cardManager.traits.Add(t1);
+        card.traits.Add(t1);
+        SpriteRenderer t1Sprite = trait1GO.AddComponent<SpriteRenderer>();
+        t1Sprite.sprite = t1.GetTraitSprite();
         trait1GO.transform.localScale = TRAIT_SCALE;
         trait1GO.transform.Translate(TRAIT_OFFSET+CARD_OFFSET);
 
 
-        return card;
+        return cardGO;
     }
 }
