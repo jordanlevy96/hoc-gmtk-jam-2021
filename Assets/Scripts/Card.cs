@@ -5,21 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class Card : MonoBehaviour
 {
-    public static int CompareCards(Card c1, Card c2)
-    {
-        int total = 0;
-        int curr = 0;
-        foreach (Trait t1 in c1.traits)
-        {
-            foreach (Trait t2 in c2.traits)
-            {
-                curr = Trait.CompareTraits(t1, t2);
-                total += curr;
-            }
-        }
-        return total;
-    }
-
     private Tilemap grid;
     private bool isDragging;
     public List<Trait> traits = new List<Trait>();
@@ -28,7 +13,8 @@ public class Card : MonoBehaviour
 
     public void Start()
     {
-        grid = transform.parent.GetComponent<Tilemap>();
+        // grid = transform.parent.GetComponent<Tilemap>();
+        grid = TileManager.tm.BoardGrid;
     }
 
     public void OnMouseDown()
@@ -51,6 +37,7 @@ public class Card : MonoBehaviour
                 return;
             }
 
+            grid.SetTile(gridPos, null);
             TileManager.tm.PlaceCard(this, gridPos);
         }
     }
@@ -63,5 +50,20 @@ public class Card : MonoBehaviour
             transform.Translate(mousePos);
         }
 
+    }
+
+    public static int CompareCards(Card c1, Card c2)
+    {
+        int total = 0;
+        int curr = 0;
+        foreach (Trait t1 in c1.traits)
+        {
+            foreach (Trait t2 in c2.traits)
+            {
+                curr = Trait.CompareTraits(t1, t2);
+                total += curr;
+            }
+        }
+        return total;
     }
 }
