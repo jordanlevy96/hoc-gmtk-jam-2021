@@ -11,6 +11,7 @@ public class Card : MonoBehaviour
     public Tile bg;
     public Tile character;
     public Bond bond;
+    public Vector3Int gridPos;
 
     public void Start()
     {
@@ -26,7 +27,7 @@ public class Card : MonoBehaviour
     public void OnMouseUp()
     {
         isDragging = false;
-        Vector3Int gridPos = grid.WorldToCell(transform.position);
+        gridPos = grid.WorldToCell(transform.position);
 
         if (grid.HasTile(gridPos))
         {
@@ -67,18 +68,24 @@ public class Card : MonoBehaviour
     {
         int total = 0;
         int curr = 0;
+        Bond b = null;
 
         if ((int) c1.GetBondLevel() + (int) c2.GetBondLevel() < 2)
         {
             GameObject newBond = new GameObject("bond");
-            Bond b = newBond.AddComponent<Bond>();
+            b = newBond.AddComponent<Bond>();
+            c1.bond = b;
+            b.bonders.Add(c1);
+            c2.bond = b;
+            b.bonders.Add(c2);
+            b.CalculateLocation();
         }
 
         foreach (Trait t1 in c1.traits)
         {
             foreach (Trait t2 in c2.traits)
             {
-                curr = Trait.CompareTraits(t1, t2);
+                curr = Trait.CompareTraits(t1, t2, b);
                 total += curr;
             }
         }

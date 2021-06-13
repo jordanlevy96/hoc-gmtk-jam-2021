@@ -43,21 +43,30 @@ public class Trait : MonoBehaviour
         {TraitType.LUSTFUL, new int[] {(int) TraitType.PROUD, (int) TraitType.HONEST}}
     };
 
-    public static int CompareTraits(Trait t1, Trait t2)
+    public static int CompareTraits(Trait t1, Trait t2, Bond b)
     {
-        // Debug.Log("Comparing " + t1.trait + " and " + t2.trait);
+        int score;
+
         if (t1.trait == t2.trait)
         {
-            return GameManager.gm.SameMatchScore;
+            score = GameManager.gm.SameMatchScore;
         }
         else if (TraitMatches[t1.trait].Contains((int) t2.trait))
         {
-            return GameManager.gm.CloseMatchScore;
+            score = GameManager.gm.CloseMatchScore;
         }
         else
         {
-            return 0;
+            score = 0;
         }
+
+        if (b)
+        {
+            b.level = (Bond.BondLevel)score;
+            score = score * 2;
+        }
+
+        return score;
     }
 
     private TraitType trait;
