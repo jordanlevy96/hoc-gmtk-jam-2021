@@ -520,8 +520,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59051a8d07a7b496684a0e96a2212faa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tiles:
-  - {fileID: 11400000, guid: 5be26b2f6aab84d6f8c77d716271a17f, type: 2}
+  Frame: {fileID: 11400000, guid: 6bd33dec38d6d4baf97bac3a21186a09, type: 2}
+  Backgrounds:
+  - {fileID: 11400000, guid: 618a3f7519e6f422cb0f107502bf3e4a, type: 2}
+  - {fileID: 11400000, guid: d264de1efec184c9fae06bbea9062058, type: 2}
+  - {fileID: 11400000, guid: 384160825f2584581b8c8682613e6d92, type: 2}
+  - {fileID: 11400000, guid: 335a1f2cad3c945368e30af6a46c2760, type: 2}
+  - {fileID: 11400000, guid: e63cf9ff3042b436480c1b72231ed92d, type: 2}
+  Characters:
+  - {fileID: 11400000, guid: cebaceecd2c2d4ccdb599b885aeadd21, type: 2}
+  - {fileID: 11400000, guid: cc0e641d44d5343b7ba45d064531209b, type: 2}
+  - {fileID: 11400000, guid: 7ea277ccd9bbe4a91b52128691c88dde, type: 2}
+  - {fileID: 11400000, guid: 955fa019561d9479f951c5d11afee7b4, type: 2}
+  - {fileID: 11400000, guid: fbd0f133027584be096df82945bcbdc1, type: 2}
+  - {fileID: 11400000, guid: 52958e0cac6c9499295c9d41dae7157e, type: 2}
+  - {fileID: 11400000, guid: 2f65fa7256074433880dd22021248df5, type: 2}
+  - {fileID: 11400000, guid: c9c49528aa319424cbbcfbde1f187873, type: 2}
   Grid: {fileID: 2100454939}
 --- !u!4 &1344892508
 Transform:

@@ -5,7 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class CardGenerator : MonoBehaviour
 {
-    public List<Tile> Tiles;
+    public Tile Frame;
+    public List<Tile> Backgrounds;
+    public List<Tile> Characters;
     public Tilemap Grid;
     private System.Random Rand = new System.Random();
 
@@ -16,8 +18,11 @@ public class CardGenerator : MonoBehaviour
 
     public GameObject DrawCard()
     {
-        int randi = Rand.Next(Tiles.Count);
-        Tile tile = Tiles[randi];
+        int randBackground = Rand.Next(Backgrounds.Count);
+        int randChar = Rand.Next(Characters.Count);
+
+        Tile background = Backgrounds[randBackground];
+        Tile character = Characters[randChar];
 
         GameObject card = new GameObject();
         card.transform.SetParent(Grid.transform);
@@ -25,7 +30,7 @@ public class CardGenerator : MonoBehaviour
         card.transform.Translate(CARD_OFFSET);
 
         SpriteRenderer sr = card.AddComponent<SpriteRenderer>();
-        sr.sprite = tile.sprite;
+        sr.sprite = Frame.sprite;
         card.AddComponent<BoxCollider2D>();
         Card cardManager = card.AddComponent<Card>();
 
