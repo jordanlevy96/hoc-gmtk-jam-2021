@@ -14,9 +14,4 @@ public class CardDealer : MonoBehaviour
             GameManager.Hand.Add(Generator.DrawCard());
         }
     }
-
-    void LateUpdate()
-    {
-
-    }
 }

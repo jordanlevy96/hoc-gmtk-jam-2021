@@ -6,15 +6,15 @@ using UnityEngine.Tilemaps;
 public class Card : MonoBehaviour
 {
     private Tilemap grid;
-    private Tile tile;
-
     private bool isDragging;
+    public List<Trait> traits = new List<Trait>();
+    public Tile bg;
+    public Tile character;
 
     public void Start()
     {
-        grid = transform.parent.GetComponent<Tilemap>();
-        tile = ScriptableObject.CreateInstance<Tile>();
-        tile.sprite = transform.GetComponent<SpriteRenderer>().sprite;
+        // grid = transform.parent.GetComponent<Tilemap>();
+        grid = TileManager.tm.BoardGrid;
     }
 
     public void OnMouseDown()
@@ -26,15 +26,20 @@ public class Card : MonoBehaviour
     {
         isDragging = false;
         Vector3Int gridPos = grid.WorldToCell(transform.position);
-        
-        
+
         if (grid.HasTile(gridPos))
         {
-            Debug.Log("You dragged a sprite onto a tile!!!");
-            grid.SetTile(gridPos, tile);
-            Destroy(transform.gameObject);
-            GameManager.Hand.Remove(transform.gameObject);
-        }        
+            Debug.Log("You dragged a sprite onto " + gridPos);
+
+            if (DatingCourt.Court[gridPos.x, gridPos.y])
+            {
+                Debug.Log("Tile taken!");
+                return;
+            }
+
+            grid.SetTile(gridPos, null);
+            TileManager.tm.PlaceCard(this, gridPos);
+        }
     }
 
     void Update()
@@ -45,5 +50,20 @@ public class Card : MonoBehaviour
             transform.Translate(mousePos);
         }
 
+    }
+
+    public static int CompareCards(Card c1, Card c2)
+    {
+        int total = 0;
+        int curr = 0;
+        foreach (Trait t1 in c1.traits)
+        {
+            foreach (Trait t2 in c2.traits)
+            {
+                curr = Trait.CompareTraits(t1, t2);
+                total += curr;
+            }
+        }
+        return total;
     }
 }
