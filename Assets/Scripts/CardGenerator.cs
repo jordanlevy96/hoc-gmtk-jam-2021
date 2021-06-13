@@ -18,6 +18,7 @@ public class CardGenerator : MonoBehaviour
     private static Vector3 CHARACTER_OFFSET = new Vector3(0, 0, -2);
     private static Vector3 CHARACTER_SCALE = new Vector3(1, 1, 1);
     private static Vector3 TRAIT_OFFSET = new Vector3(-0.68f, 0.68f, -3);
+    private static Vector3 TRAIT2_OFFSET = new Vector3(0.68f, 0.68f, -3);
     private static Vector3 TRAIT_SCALE = new Vector3(1, 1, 1);
     private static int CARD_SORTING = 10;
 
@@ -69,6 +70,15 @@ public class CardGenerator : MonoBehaviour
         trait1GO.transform.localScale = TRAIT_SCALE;
         trait1GO.transform.Translate(TRAIT_OFFSET+CARD_OFFSET);
 
+        GameObject trait2GO = new GameObject("trait2");
+        trait2GO.transform.SetParent(cardGO.transform);
+        Trait t2 = trait2GO.AddComponent<Trait>();
+        card.traits.Add(t2);
+        SpriteRenderer t2Sprite = trait2GO.AddComponent<SpriteRenderer>();
+        t2Sprite.sprite = t2.GetTraitSprite();
+        t2Sprite.sortingOrder = CARD_SORTING;
+        trait2GO.transform.localScale = TRAIT_SCALE;
+        trait2GO.transform.Translate(TRAIT2_OFFSET+CARD_OFFSET);
 
         return cardGO;
     }

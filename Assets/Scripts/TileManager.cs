@@ -8,6 +8,7 @@ public class TileManager : MonoBehaviour
     public Tilemap BoardGrid;
     public Tilemap CharacterGrid;
     public Tilemap TraitGrid;
+    public Tilemap SecondaryTraits;
 
     public static TileManager tm;
 
@@ -39,13 +40,13 @@ public class TileManager : MonoBehaviour
         // Debug.Log("Set char " + card.character + " to " + charPos);
 
         // set traits
-        for (int i = 0; i < card.traits.Count; i++)
-        {
-            Tile traitTile = Trait.CreateTraitTile(card.traits[i]);
-            Vector3Int traitPos = new Vector3Int(gridPos.x, gridPos.y, i);
-            TraitGrid.SetTile(traitPos, traitTile);
-            // Debug.Log("Set trait " + traitTile + " to " + traitPos);
-        }
+        Tile traitTile = Trait.CreateTraitTile(card.traits[0]);
+        Vector3Int traitPos = new Vector3Int(gridPos.x, gridPos.y, 1);
+        TraitGrid.SetTile(traitPos, traitTile);
+
+        Tile secondaryTrait = Trait.CreateTraitTile(card.traits[1]);
+        Vector3Int trait2Pos = new Vector3Int(gridPos.x, gridPos.y, 2);
+        SecondaryTraits.SetTile(trait2Pos, secondaryTrait);
 
         card.transform.gameObject.SetActive(false);
         GameManager.Hand.Remove(card.transform.gameObject);
