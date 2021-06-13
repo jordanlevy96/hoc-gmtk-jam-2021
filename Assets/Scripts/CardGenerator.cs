@@ -18,6 +18,7 @@ public class CardGenerator : MonoBehaviour
     private static Vector3 CHARACTER_OFFSET = new Vector3(0, 0, -3);
     private static Vector3 CHARACTER_SCALE = new Vector3(1, 1, 1);
     private static Vector3 TRAIT_OFFSET = new Vector3(-0.68f, 0.68f, -4);
+    private static Vector3 TRAIT_SCALE = new Vector3(1, 1, 1);
 
     public GameObject DrawCard()
     {
@@ -57,7 +58,7 @@ public class CardGenerator : MonoBehaviour
         trait1GO.transform.SetParent(card.transform);
         Trait t1 = trait1GO.AddComponent<Trait>();
         cardManager.traits.Add(t1);
-        // trait1GO.transform.localScale = TRAIT_SCALE;
+        trait1GO.transform.localScale = TRAIT_SCALE;
         trait1GO.transform.Translate(TRAIT_OFFSET+CARD_OFFSET);
 
 

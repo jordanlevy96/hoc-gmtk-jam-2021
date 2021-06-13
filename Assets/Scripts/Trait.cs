@@ -45,7 +45,7 @@ public class Trait : MonoBehaviour
 
     public static int CompareTraits(Trait t1, Trait t2)
     {
-        Debug.Log("Comparing " + t1.trait + " and " + t2.trait);
+        // Debug.Log("Comparing " + t1.trait + " and " + t2.trait);
         if (t1.trait == t2.trait)
         {
             return GameManager.gm.SameMatchScore;
@@ -72,10 +72,10 @@ public class Trait : MonoBehaviour
         // traitSprite.color = TraitColors[trait];
     }
 
-    public Tile CreateTraitTile()
+    public static Tile CreateTraitTile(Trait t)
     {
         Tile traitTile = ScriptableObject.CreateInstance<Tile>();
-        Sprite traitSprite = transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sprite; // FIXME: this won't work once we have more than one trait on a single card!!
+        Sprite traitSprite = t.transform.GetComponent<SpriteRenderer>().sprite;
         traitTile.sprite = traitSprite;
 
         return traitTile;

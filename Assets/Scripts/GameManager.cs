@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     public int SameMatchScore;
     public int CloseMatchScore;
     public int WinThreshold;
+    public TextMeshProUGUI Score;
+    public static int CurrentScore;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +23,15 @@ public class GameManager : MonoBehaviour
             gm = this;
             Hand = new List<GameObject>(); 
             DatingCourt = GameObject.Find("DatingCourt");
+            CurrentScore = 0;
+        }
+    }
+
+    void Update()
+    {
+        if (Score)
+        {
+            Score.text = "Total Score: " + CurrentScore;
         }
     }
 

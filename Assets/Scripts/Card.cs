@@ -9,7 +9,6 @@ public class Card : MonoBehaviour
     {
         int total = 0;
         int curr = 0;
-        Debug.Log(c1);
         foreach (Trait t1 in c1.traits)
         {
             foreach (Trait t2 in c2.traits)
@@ -42,30 +41,37 @@ public class Card : MonoBehaviour
         isDragging = false;
         Vector3Int gridPos = grid.WorldToCell(transform.position);
 
-        if (DatingCourt.Court[gridPos.x, gridPos.y])
+        if (grid.HasTile(gridPos))
         {
-            Debug.Log("Tile taken!");
-        }
-        else if (grid.HasTile(gridPos))
-        {
+            if (DatingCourt.Court[gridPos.x, gridPos.y])
+            {
+                Debug.Log("Tile taken!");
+                return;
+            }
+
             Debug.Log("You dragged a sprite onto " + gridPos);
 
             Tile cardTile = ScriptableObject.CreateInstance<Tile>();
             Sprite cardSprite = transform.GetComponent<SpriteRenderer>().sprite;
             cardTile.sprite = cardSprite;
-            grid.SetTile(gridPos, cardTile);
-            Debug.Log("Set " + cardTile + " to " + gridPos);
+            Vector3Int cardPos = new Vector3Int(gridPos.x, gridPos.y, 0);
+            grid.SetTile(cardPos, cardTile);
+            Debug.Log("Set card " + cardTile + " to " + cardPos);
 
-            Vector3Int charPos = new Vector3Int(gridPos.x, gridPos.y, gridPos.z + 1);
+            Vector3Int bgPos = new Vector3Int(gridPos.x, gridPos.y, 10);
+            grid.SetTile(bgPos, bg);
+            Debug.Log("Set background " + bg + " to " + bgPos);
+
+            Vector3Int charPos = new Vector3Int(gridPos.x, gridPos.y, 20);
             grid.SetTile(charPos, character);
-            Debug.Log("Set " + character + " to " + charPos);
+            Debug.Log("Set char " + character + " to " + charPos);
 
             for (int i = 0; i < traits.Count; i++)
             {
-                Tile traitTile = traits[i].CreateTraitTile();
-                Vector3Int traitPos = new Vector3Int(gridPos.x, gridPos.y, gridPos.z + i+2);
+                Tile traitTile = Trait.CreateTraitTile(traits[i]);
+                Vector3Int traitPos = new Vector3Int(gridPos.x, gridPos.y, i*10 + 30);
                 grid.SetTile(traitPos, traitTile);
-                Debug.Log("Set " + traitTile + " to " + traitPos);
+                Debug.Log("Set trait " + traitTile + " to " + traitPos);
             }
 
             transform.gameObject.SetActive(false);

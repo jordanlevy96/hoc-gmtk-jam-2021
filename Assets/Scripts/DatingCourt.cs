@@ -31,7 +31,7 @@ public class DatingCourt : MonoBehaviour
         {
             return 0;
         }
-        
+
         Card neighbor = null;
         int total = 0;
         int curr = 0;
@@ -76,7 +76,6 @@ public class DatingCourt : MonoBehaviour
             }
         }
 
-        Debug.Log("Neighbor Score: " + total);
         return total;
     }
 
@@ -91,5 +90,7 @@ public class DatingCourt : MonoBehaviour
                 score += CheckNeighbors(x, y);
             }
         }
+
+        GameManager.CurrentScore = score;
     }
 }
