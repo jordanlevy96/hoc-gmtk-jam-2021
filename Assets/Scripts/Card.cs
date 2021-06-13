@@ -43,43 +43,48 @@ public class Card : MonoBehaviour
 
         if (grid.HasTile(gridPos))
         {
+            Debug.Log("You dragged a sprite onto " + gridPos);
+
             if (DatingCourt.Court[gridPos.x, gridPos.y])
             {
                 Debug.Log("Tile taken!");
                 return;
             }
 
-            Debug.Log("You dragged a sprite onto " + gridPos);
-
-            Tile cardTile = ScriptableObject.CreateInstance<Tile>();
-            Sprite cardSprite = transform.GetComponent<SpriteRenderer>().sprite;
-            cardTile.sprite = cardSprite;
-            Vector3Int cardPos = new Vector3Int(gridPos.x, gridPos.y, 0);
-            grid.SetTile(cardPos, cardTile);
-            Debug.Log("Set card " + cardTile + " to " + cardPos);
-
-            Vector3Int bgPos = new Vector3Int(gridPos.x, gridPos.y, 10);
-            grid.SetTile(bgPos, bg);
-            Debug.Log("Set background " + bg + " to " + bgPos);
-
-            Vector3Int charPos = new Vector3Int(gridPos.x, gridPos.y, 20);
-            grid.SetTile(charPos, character);
-            Debug.Log("Set char " + character + " to " + charPos);
-
-            for (int i = 0; i < traits.Count; i++)
-            {
-                Tile traitTile = Trait.CreateTraitTile(traits[i]);
-                Vector3Int traitPos = new Vector3Int(gridPos.x, gridPos.y, i*10 + 30);
-                grid.SetTile(traitPos, traitTile);
-                Debug.Log("Set trait " + traitTile + " to " + traitPos);
-            }
-
-            transform.gameObject.SetActive(false);
-            GameManager.Hand.Remove(transform.gameObject);
-            DatingCourt.Court[gridPos.x, gridPos.y] = this;
-            DatingCourt.Evaluate();
-            grid.RefreshAllTiles();
+            PlaceCard(grid, this, gridPos);
         }
+    }
+
+    public static void PlaceCard(Tilemap grid, Card card, Vector3Int gridPos)
+    {
+        Tile cardTile = ScriptableObject.CreateInstance<Tile>();
+        Sprite cardSprite = card.transform.GetComponent<SpriteRenderer>().sprite;
+        cardTile.sprite = cardSprite;
+        Vector3Int cardPos = new Vector3Int(gridPos.x, gridPos.y, 0);
+        grid.SetTile(cardPos, cardTile);
+        Debug.Log("Set card " + cardTile + " to " + cardPos);
+
+        Vector3Int bgPos = new Vector3Int(gridPos.x, gridPos.y, 10);
+        grid.SetTile(bgPos, card.bg);
+        Debug.Log("Set background " + card.bg + " to " + bgPos);
+
+        Vector3Int charPos = new Vector3Int(gridPos.x, gridPos.y, 20);
+        grid.SetTile(charPos, card.character);
+        Debug.Log("Set char " + card.character + " to " + charPos);
+
+        for (int i = 0; i < card.traits.Count; i++)
+        {
+            Tile traitTile = Trait.CreateTraitTile(card.traits[i]);
+            Vector3Int traitPos = new Vector3Int(gridPos.x, gridPos.y, i * 10 + 30);
+            grid.SetTile(traitPos, traitTile);
+            Debug.Log("Set trait " + traitTile + " to " + traitPos);
+        }
+
+        card.transform.gameObject.SetActive(false);
+        GameManager.Hand.Remove(card.transform.gameObject);
+        DatingCourt.Court[gridPos.x, gridPos.y] = card;
+        DatingCourt.Evaluate();
+        grid.RefreshAllTiles();
     }
 
     void Update()
