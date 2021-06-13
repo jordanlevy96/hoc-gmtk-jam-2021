@@ -36,7 +36,6 @@ public class DatingCourt : MonoBehaviour
     private static int CheckNeighbors(int x, int y)
     {
         // TODO: display something?
-        // FIXME: not accounting for neighbors that have already been counted!!!
 
         Card baseCard = Court[x, y];
         if (!baseCard)
@@ -93,7 +92,8 @@ public class DatingCourt : MonoBehaviour
 
     public static void EvaluateScore(int x, int y)
     {
-        bool[,] counted = new bool[Width, Height];        
+        bool[,] counted = new bool[Width, Height];
+
         GameManager.CurrentScore += CheckNeighbors(x, y);;
         GameManager.gm.Score.text = "Total Score: " + GameManager.CurrentScore.ToString();
     }

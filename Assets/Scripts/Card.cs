@@ -10,6 +10,7 @@ public class Card : MonoBehaviour
     public List<Trait> traits = new List<Trait>();
     public Tile bg;
     public Tile character;
+    public Bond bond;
 
     public void Start()
     {
@@ -52,10 +53,29 @@ public class Card : MonoBehaviour
 
     }
 
+    public Bond.BondLevel GetBondLevel()
+    {
+        if (!bond)
+        {
+            return Bond.BondLevel.ZERO;
+        }
+        else
+        {
+            return bond.level;
+        }
+    }
+
     public static int CompareCards(Card c1, Card c2)
     {
         int total = 0;
         int curr = 0;
+
+        if ((int) c1.GetBondLevel() + (int) c2.GetBondLevel() < 2)
+        {
+            GameObject newBond = new GameObject("bond");
+            Bond b = newBond.AddComponent<Bond>();
+        }
+
         foreach (Trait t1 in c1.traits)
         {
             foreach (Trait t2 in c2.traits)
