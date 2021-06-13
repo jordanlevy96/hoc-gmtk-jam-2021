@@ -15,9 +15,12 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI Score;
     public static int CurrentScore;
 
+    private AudioSource clickSound;
+
     // Start is called before the first frame update
     void Start()
     {
+        clickSound = this.GetComponent<AudioSource>();
         if (!gm)
         {
             gm = this;
@@ -29,7 +32,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        { 
+            clickSound.Play();
+        }
     }
 
     public static void ToggleDating()
