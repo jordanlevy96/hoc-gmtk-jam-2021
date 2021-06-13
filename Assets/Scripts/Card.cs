@@ -24,6 +24,8 @@ public class Card : MonoBehaviour
     private Tilemap grid;
     private bool isDragging;
     public List<Trait> traits = new List<Trait>();
+    public Tile bg;
+    public Tile character;
 
     public void Start()
     {
